@@ -19,24 +19,6 @@ try:
 except ValueError as e:
     print('ValueError:', e)
 
-# Show all columns or pass a number
-pd.set_option('display.max_columns', None)
-print(data.head(10))
-print('\n')
-print('-' * 100)
-# Data understanding
-print(data.info())
-print('\n')
-print('-' * 100)
-# Statistics
-print('Descriptive statistics:\n')
-print('-' * 100)
-print(data.describe())
-print('-' * 100)
-# Null values
-print('Checking the total null values:\n')
-print(data.isnull().sum())
-
 
 def survived(df):
     """
@@ -110,7 +92,7 @@ def violin(df):
 def histogram(df):
     """
     This function applies some pre-processing operations by extracting the Initial column and
-    filling the null values of the Age column with the mean of the corresponding Inital.
+    filling the null values of the Age column with the mean of the corresponding Initial.
     Once this is done, the function shows the histogram of each Survived class vs age.
     """
 
@@ -138,4 +120,19 @@ def histogram(df):
     ax[1].set_title('Survived 1')
     x2 = list(range(0, 85, 5))
     ax[1].set_yticks(x2)
+    plt.show()
+
+
+def distribution_plot():
+    """
+    This function shows the distribution plot of the Fare column in each Pclass
+    """
+
+    f, ax = plt.subplots(1, 3, figsize=(20, 10))
+    sns.distplot(data[data['Pclass'] == 1]['Fare'], ax=ax[0])
+    ax[0].set_title('Fares in Pclass 1')
+    sns.distplot(data[data['Pclass'] == 1]['Fare'], ax=ax[1])
+    ax[1].set_title('Fares in Pclass 2')
+    sns.distplot(data[data['Pclass'] == 3]['Fare'], ax=ax[2])
+    ax[2].set_title('Fares in Pclass 3')
     plt.show()
