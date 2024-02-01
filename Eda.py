@@ -89,7 +89,7 @@ def survived_pclass(df):
 
 def violin(df):
     '''
-    This function show the violin plots of survived column divided by Pclass and Age
+    This function shows the violin plots of survived column divided by Pclass and Age
     '''
 
     f, ax = plt.subplots(1, 2, figsize=(20, 10))
