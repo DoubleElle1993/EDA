@@ -4,6 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 import warnings
+
 plt.style.use('fivethirtyeight')
 warnings.filterwarnings('ignore')
 
@@ -38,9 +39,9 @@ print(data.isnull().sum())
 
 
 def survived(df):
-    '''
+    """
     This function aims to show the percentage of survived people
-    '''
+    """
 
     f, ax = plt.subplots(1, 2, figsize=(20, 10))
     df['Survived'].value_counts().plot.pie(explode=[0, 0.1], autopct='%1.1%%', ax=ax[0], shadow=True)
@@ -50,10 +51,11 @@ def survived(df):
     ax[1].set_title('Survived')
     plt.show()
 
+
 def survived_sex(df):
-    '''
+    """
     This function shows the number of survived people divided by sex
-    '''
+    """
 
     f, ax = plt.subplots(1, 2, figsize=(20, 10))
     df[['Sex', 'Survived']].groupy('Sex').count().plot().bar(ax=ax[0])
@@ -63,20 +65,22 @@ def survived_sex(df):
     ax[1].set_tilte('Sex: Survived vs dead')
     plt.show()
 
-def crosstab(df):
-    '''
+
+def heatmap(df):
+    """
     This function shows the Cross-tabulation of Pclass and Survived
-    '''
+    """
 
     crosstab_result = pd.crosstab(df['Pclass'], df['Survived'], margins=True)
     heatmpap = sns.heatmap(crosstab_result, annot=True, camp='summer_r', fmt='d')
     heatmpap.set_title('Cross-tabulation of Pclass and Survived')
     plt.show()
 
-def survived_pclass(df):
-    '''
+
+def survived_sex_count(df):
+    """
     This function shows the number of survived people divided by sex
-    '''
+    """
 
     f, ax = plt.subplots(1, 2, figsize=(20, 10))
     df['Pclass'].value_counts().plot.bar(ax=ax[0])
@@ -87,10 +91,11 @@ def survived_pclass(df):
     ax[1].set_ylabel('Count')
     plt.show()
 
+
 def violin(df):
-    '''
+    """
     This function shows the violin plots of survived column divided by Pclass and Age
-    '''
+    """
 
     f, ax = plt.subplots(1, 2, figsize=(20, 10))
     sns.violinplot(data=df, x='Pclass', y='Age', hue='Survived', split=True, ax=ax[0])
@@ -101,19 +106,20 @@ def violin(df):
     ax[1].set_yticks(range(0, 110, 10))
     plt.show()
 
+
 def histogram(df):
-    '''
+    """
     This function applies some pre-processing operations by extracting the Initial column and
     filling the null values of the Age column with the mean of the corresponding Inital.
     Once this is done, the function shows the histogram of each Survived class vs age.
-    '''
-
+    """
 
     df['Initial'] = df['Name'].str.extract('([A-Za-z]+)\.')
 
-    df['Initial'].replace(['Mlle', 'Mme', 'Ms', 'Dr', 'Major', 'Lady', 'Countess', 'Jonkheer', 'Col', 'Rev', 'Capt', 'Sir', 'Don'],
-                          ['Miss', 'Miss', 'Miss', 'Mr', 'Mr', 'Mrs', 'Mrs', 'Other', 'Other', 'Other', 'Mr', 'Mr', 'Mr'],
-                          inplace=True)
+    df['Initial'].replace(
+        ['Mlle', 'Mme', 'Ms', 'Dr', 'Major', 'Lady', 'Countess', 'Jonkheer', 'Col', 'Rev', 'Capt', 'Sir', 'Don'],
+        ['Miss', 'Miss', 'Miss', 'Mr', 'Mr', 'Mrs', 'Mrs', 'Other', 'Other', 'Other', 'Mr', 'Mr', 'Mr'],
+        inplace=True)
 
     df.groupby('Initial')['Age'].mean()
 
