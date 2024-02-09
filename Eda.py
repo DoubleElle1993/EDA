@@ -40,7 +40,7 @@ def survived_sex(df):
     """
 
     f, ax = plt.subplots(1, 2, figsize=(20, 10))
-    df[['Sex', 'Survived']].groupy('Sex').count().plot().bar(ax=ax[0])
+    df[['Sex', 'Survived']].groupby('Sex').count().plot().bar(ax=ax[0])
     ax[0].set_title('Survived vs sex')
     ax[0].set_ylabel('Count')
     sns.countplot(x='Sex', data=df, hue='Survived', ax=ax[1])
